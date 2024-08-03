@@ -3,7 +3,7 @@
 {% block content %}
     <h4>Lista de Contatos</h4>
 
-    <table>
+    <table class="striped">
         <thead>
             <tr>
                 <th>Name</th>
@@ -25,9 +25,43 @@
                 <td>
                     {% from 'buttons.html' import buttons %}
                     {{buttons(contato)}}
-                    {% endfor %}
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
+    
+    <div id="add-modal" class="modal">
+        <div class="modal-content">
+            <h4>Adicionar Contatos</h4>
+            <form action="/salvar_contato" method="post">
+                <div class="input-field">
+                    <input type="text" id="nome" required>
+                    <label for="nome">Nome</label>
+                </div>
+
+                <div class="input-field">
+                    <input type="text" id="email" required>
+                    <label for="email">email</label>
+                </div>
+
+                <div class="input-field">
+                    <input type="text" id="celular" required>
+                    <label for="celular">celular</label>
+                </div>
+
+                <div class="input-field">
+                    <input type="text" id="celular_alt">
+                    <label for="celular_alt">celular alternativo</label>
+                </div>
+
+                <div class="input-field">
+                    <input type="text" id="tags" required>
+                    <label for="tags">tags</label>
+                </div>
+
+                <button type="submit" class="waves-effect waves-light btn">Salvar</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}
