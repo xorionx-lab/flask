@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h4>Lista de Contatos</h4>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Celular</th>
+                <th>Celular Alternativo</th>
+                <th>Tags</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contato in contatos %}
+            <tr>
+                <td>{{ contado.nome }}</td>
+                <td>{{ contado.email }}</td>
+                <td>{{ contado.celular }}</td>
+                <td>{{ contado.celular_alt }}</td>
+                <td>{{ contado.tags }}</td>
+                <td>
+                    {% from 'buttons.html' import buttons %}
+                    {{buttons(contato)}}
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
