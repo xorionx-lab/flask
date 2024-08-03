@@ -23,6 +23,8 @@
                 <td>{{ contato.celular_alt }}</td>
                 <td>{{ contato.tags }}</td>
                 <td>
+                    {% from 'buttons.html' import buttons %}
+                    {{ buttons(contato) }}
                 </td>
             </tr>
             {% endfor %}
