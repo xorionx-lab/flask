@@ -1,9 +1,17 @@
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import declarative_base , sessionmaker
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from sqlalchemy.orm import declarative_base , sessionmaker, relationship
 
-engine = create_engine('sqlite:///contatos.db', echo=True)
+engine = create_engine('sqlite:///contatos.db', echo=True, connect_args={'check_same_thread': False})
 
 Base = declarative_base()
+
+class User(Base):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String(50), unique=True, nullable=False)
+    username = Column(String(50), nullable=False)
+    contatos = relationship('Contato', back_populates='user')
 
 class Contato(Base):
     __tablename__ = 'contatos'
@@ -14,6 +22,8 @@ class Contato(Base):
     celular = Column(String(20), nullable=False)
     celular_alt = Column(String(20), nullable=True)
     tags = Column(String(100), nullable=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship('User', back_populates='contatos')
 
 
 Base.metadata.create_all(engine)
