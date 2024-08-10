@@ -1,8 +1,27 @@
-from flask import Flask, render_template, request, redirect
-from database import Contato, session
+from flask import Flask, render_template, request, redirect, session as flask_session
+from database import User, Contato, session
+from werkzeug.security import generate_password_hash, check_password_hash
+import os
 
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
+
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        hashed_password = generate_password_hash(password)
+
+        new_user = User(username=username, password=hashed_password)
+        session.add(new_user)
+        session.commit()
+        return redirect('/login')
+
+    return render_template('register.html')
 
 
 
@@ -10,11 +29,6 @@ app = Flask(__name__)
 def login():
     return render_template('login.html')
 
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    return render_template('register.html')
 
 @app.route('/')
 def index():
