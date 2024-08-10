@@ -10,7 +10,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     username = Column(String(50), unique=True, nullable=False)
-    username = Column(String(50), nullable=False)
+    password = Column(String(50), nullable=False)
     contatos = relationship('Contato', back_populates='user')
 
 class Contato(Base):
